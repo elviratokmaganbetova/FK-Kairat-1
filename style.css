@@ -1,0 +1,904 @@
+:root {
+    --primary-color: #FFCC00;
+    --secondary-color: #0055A4;
+    --dark-color: #002244;
+    --light-color: #F5F5F5;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --text-color: #333333;
+    --border-color: #ddd;
+    --card-bg: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--dark-color);
+    color: white;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+}
+
+#logo svg text {
+    fill: var(--dark-color);
+    font-family: Arial, sans-serif;
+}
+
+#top-menu {
+    display: flex;
+    gap: 10px;
+}
+
+#top-menu button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#top-menu button:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+}
+
+#game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#current-date {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#budget {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.goal-indicator {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+#game-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+    overflow-y: auto;
+}
+
+.game-view {
+    display: none;
+}
+
+.active-view {
+    display: block;
+}
+
+h1, h2, h3, h4 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--secondary-color);
+    margin: 20px 0;
+}
+
+/* Dashboard styles */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.dashboard-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.teams-overview, .infrastructure-overview, .talents-overview,
+.finance-overview, .calendar-overview, .graduates-overview {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.team, .facility, .player, .upcoming-event {
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.team-stats, .facility-level, .player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.player-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+}
+
+.stars {
+    color: var(--primary-color);
+}
+
+.event-date {
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.progress-stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-stat .progress-bar {
+    flex: 1;
+}
+
+/* Academy view styles */
+#academy-infrastructure {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#infrastructure-3d-view {
+    flex: 2;
+    height: 400px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    position: relative;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-41c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm62 76c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zM32 90c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm55-68c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-19-24c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm61 73c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7z' fill='%23d1d8e0' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+    min-height: 400px;
+}
+
+#facility-details {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Staff view styles */
+.staff-controls, .players-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+button, select {
+    padding: 8px 15px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: white;
+    cursor: pointer;
+}
+
+button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+}
+
+#staff-list, #players-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+/* Scouting view styles */
+#scouting-map-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#kazakhstan-map {
+    flex: 2;
+    height: 400px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    min-height: 400px;
+}
+
+#scouting-controls {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.control-group {
+    margin-bottom: 15px;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+#scouting-reports {
+    margin-top: 30px;
+}
+
+#reports-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* Finance view styles */
+.finance-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.budget-allocation, .financial-reports {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#budget-sliders {
+    margin: 20px 0;
+}
+
+.slider-group {
+    margin-bottom: 15px;
+}
+
+.slider-group input {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.report-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background-color: #f0f0f0;
+    color: var(--text-color);
+    padding: 8px 15px;
+    border-radius: 4px 4px 0 0;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+}
+
+.tab-btn.active {
+    background-color: white;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* Event styles */
+#game-events {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.event-window {
+    background-color: white;
+    width: 600px;
+    max-width: 90%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+#close-event {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#event-content {
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#event-options {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    background-color: #f5f5f5;
+    border-top: 1px solid var(--border-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Game objectives styles */
+.game-objectives {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+    margin-bottom: 30px;
+    border-left: 5px solid var(--primary-color);
+}
+
+.main-goal {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.main-goal h2 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+}
+
+.main-goal p {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    line-height: 1.5;
+    max-width: 80%;
+    margin: 0 auto 10px auto;
+}
+
+.main-goal small {
+    font-size: 0.9rem;
+    color: #6c757d;
+    display: block;
+}
+
+.current-objectives h3 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+#objectives-list {
+    list-style-type: none;
+    margin-bottom: 25px;
+}
+
+.objective {
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e9ecef;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.objective:hover {
+    background-color: #f8f9fa;
+}
+
+.objective .checkbox {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 12px;
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+    flex-shrink: 0;
+}
+
+.objective.completed {
+    background-color: #e8f4e8;
+    border-color: #c3e6cb;
+}
+
+.objective.completed .checkbox {
+    color: var(--success-color);
+}
+
+.progress-display {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.progress-display span:first-child {
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.progress-display .progress-bar {
+    flex: 1;
+    margin: 0 10px;
+    height: 12px;
+}
+
+.progress-display #progress-percentage {
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+#complete-season {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    padding: 12px 25px;
+    border-radius: 4px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+#complete-season:hover:not(:disabled) {
+    background-color: #e0b800;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#complete-season:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.7;
+}
+
+/* Styles for Player Cards in Player List */
+.player-card {
+    background-color: var(--card-bg);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.player-card h4 {
+    margin-bottom: 5px;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+.player-details {
+    font-size: 0.9em;
+    line-height: 1.5;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.player-details p {
+    margin-bottom: 4px;
+}
+
+.player-details strong {
+    color: var(--dark-color);
+}
+
+.player-details .stars {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.player-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    font-size: 0.85em;
+    padding-top: 5px;
+}
+
+.player-stats .stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.player-stats .stat span:first-child {
+    font-weight: 500;
+    width: 30px;
+}
+
+.player-stats .stat .progress-bar {
+    flex: 1;
+    height: 6px;
+}
+
+.player-stats .stat .progress {
+    background-color: #adb5bd;
+}
+
+.player-stats .stat .progress.tech {
+    background-color: #007bff;
+}
+
+.player-stats .stat .progress.phys {
+    background-color: #dc3545;
+}
+
+.player-stats .stat .progress.tact {
+    background-color: #ffc107;
+}
+
+.player-stats .stat .progress.ment {
+    background-color: #28a745;
+}
+
+.player-stats .stat span:last-child {
+    font-weight: bold;
+    min-width: 20px;
+    text-align: right;
+}
+
+.player-actions {
+    margin-top: auto;
+    padding-top: 10px;
+    text-align: right;
+}
+
+.player-actions .btn-details {
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+/* Staff Card Styles */
+.staff-card {
+    background-color: var(--card-bg);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.staff-card h4 {
+    margin-bottom: 5px;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+.staff-details {
+    font-size: 0.9em;
+    line-height: 1.5;
+    padding-bottom: 10px;
+}
+
+.staff-details p {
+    margin-bottom: 4px;
+}
+
+.staff-details strong {
+    color: var(--dark-color);
+}
+
+.staff-details .stars {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.staff-actions {
+    margin-top: auto;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.staff-actions button {
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+.staff-actions .btn-fire {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.staff-actions .btn-fire:hover {
+    background-color: #c82333;
+}
+
+/* Academy View - Facility Placeholders */
+.facility-icon-placeholder {
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.facility-icon-placeholder:hover {
+    transform: scale(1.1);
+    background-color: var(--primary-color) !important;
+    color: var(--dark-color) !important;
+}
+
+/* Scouting Map Styles */
+#kazakhstan-map {
+    min-height: 400px;
+}
+
+.map-region {
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    border: 2px solid transparent;
+}
+
+.map-region:hover {
+    transform: translate(-50%, -50%) scale(1.15);
+    background-color: var(--primary-color) !important;
+    color: var(--dark-color) !important;
+    z-index: 10;
+}
+
+/* Hire Staff Dialog - Candidate Styles */
+#hire-candidates {
+    margin-top: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.candidate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.candidate-info {
+    font-size: 0.9em;
+}
+
+.candidate-info h4 {
+    margin: 0 0 5px 0;
+    color: var(--secondary-color);
+}
+
+.candidate-info p {
+    margin: 2px 0;
+    color: #555;
+}
+
+.candidate-info .stars {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.candidate .hire-btn {
+    padding: 5px 12px;
+    font-size: 0.9em;
+    background-color: var(--success-color);
+    color: white;
+}
+
+.candidate .hire-btn:hover {
+    background-color: #218838;
+}
+
+/* Event Dialog - Season Summary */
+.season-summary h3 {
+    color: var(--secondary-color);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.season-summary ul {
+    list-style: disc;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.season-summary p, .season-summary li {
+    margin-bottom: 5px;
+    font-size: 0.95em;
+}
+
+/* Final Results Dialog */
+.final-results h3 {
+    color: var(--secondary-color);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.final-results p {
+    margin-bottom: 8px;
+    font-size: 1em;
+}
+
+.final-rating {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.final-rating .stars {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.final-rating p:last-child {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--dark-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #top-menu {
+        display: none;
+    }
+
+    .finance-overview {
+        grid-template-columns: 1fr;
+    }
+
+    #academy-infrastructure, #scouting-map-container {
+        flex-direction: column;
+    }
+
+    #infrastructure-3d-view, #kazakhstan-map {
+        height: 300px;
+    }
+}
+
+/* Animation for dashboard cards */
+.dashboard-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Shimmering effect for progress bars */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.progress {
+    background-image: linear-gradient(90deg, var(--primary-color) 0%, #ffdd44 50%, var(--primary-color) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite linear;
+}
